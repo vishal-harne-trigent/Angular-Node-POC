@@ -1,0 +1,72 @@
+<section class="page-header">
+  <div>
+    <h1>User #{{ user()?.id }}</h1>
+    <p class="muted">GET /api/users/:id and PUT update.</p>
+  </div>
+  <a routerLink="/users" class="btn btn-ghost">Back to list</a>
+</section>
+
+@if (loading()) {
+  <p class="muted">Loading user…</p>
+} @else if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+} @else if (user(); as current) {
+  <div class="detail-grid">
+    <section class="card">
+      <h2>Profile</h2>
+      <dl class="meta">
+        <div><dt>Created</dt><dd>{{ current.createdAt | date: 'medium' }}</dd></div>
+        <div><dt>Updated</dt><dd>{{ current.updatedAt | date: 'medium' }}</dd></div>
+        <div><dt>Status</dt><dd>{{ current.status }}</dd></div>
+        <div><dt>Role</dt><dd>{{ roleLabel(current.role) }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="card form-card">
+      <h2>Update (PUT)</h2>
+      <form [formGroup]="putForm" (ngSubmit)="submitPut()">
+        <label>Name<input type="text" formControlName="name" /></label>
+        <label>Email<input type="email" formControlName="email" /></label>
+        <label>Phone<input type="tel" formControlName="phoneNumber" /></label>
+        @if (auth.isAdmin()) {
+          <label>
+            Status
+            <select formControlName="status">
+              @for (status of statuses; track status) {
+                <option [value]="status">{{ status }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            Role
+            <select formControlName="role">
+              @for (role of roles; track role.value) {
+                <option [value]="role.value">{{ role.label }}</option>
+              }
+            </select>
+          </label>
+        }
+        <button type="submit" class="btn btn-primary" [disabled]="putForm.invalid || putLoading()">
+          {{ putLoading() ? 'Saving…' : 'Save changes' }}
+        </button>
+      </form>
+    </section>
+
+    @if (auth.isAdmin()) {
+      <section class="card danger-zone">
+        <h2>Delete (DELETE)</h2>
+        <p class="muted">Permanently removes this user.</p>
+        <button type="button" class="btn btn-danger" [disabled]="deleteLoading()" (click)="deleteUser()">
+          {{ deleteLoading() ? 'Deleting…' : 'Delete user' }}
+        </button>
+      </section>
+    }
+  </div>
+
+  @if (actionMessage()) {
+    <p class="success toast">{{ actionMessage() }}</p>
+  }
+  @if (actionError()) {
+    <p class="error toast">{{ actionError() }}</p>
+  }
+}

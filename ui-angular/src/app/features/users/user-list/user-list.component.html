@@ -1,0 +1,62 @@
+<section class="page-header">
+  <div>
+    <h1>Users</h1>
+    <p class="muted">GET /api/users — list all users (requires JWT).</p>
+  </div>
+  @if (auth.isAdmin()) {
+    <a routerLink="/users/new" class="btn btn-primary">Add user</a>
+  }
+</section>
+
+@if (loading()) {
+  <p class="muted">Loading users…</p>
+} @else if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+} @else if (users().length === 0) {
+  <p class="muted">No users yet.</p>
+} @else {
+  <div class="table-wrap card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Role</th>
+          <th>Updated</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users(); track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phoneNumber || '—' }}</td>
+            <td>
+              <span class="badge" [class.inactive]="user.status === 'inactive'">
+                {{ user.status }}
+              </span>
+            </td>
+            <td>
+              <span class="badge" [class.admin]="user.role === 'admin'">
+                {{ roleLabel(user.role) }}
+              </span>
+            </td>
+            <td>{{ user.updatedAt | date: 'medium' }}</td>
+            <td class="actions">
+              @if (auth.canManageUser(user.id)) {
+                <a [routerLink]="['/users', user.id]" class="btn btn-small">Manage</a>
+              } @else {
+                <span class="muted">—</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

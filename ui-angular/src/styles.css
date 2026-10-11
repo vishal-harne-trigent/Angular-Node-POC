@@ -1,0 +1,295 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family:
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #0f172a;
+  background: #f1f5f9;
+}
+
+a {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.brand {
+  font-weight: 700;
+  color: #f8fafc;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: #cbd5e1;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.375rem;
+}
+
+.nav a.active,
+.nav a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+}
+
+.user-chip {
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.app-main {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  margin: 2rem auto;
+}
+
+.form-card h2,
+.danger-zone h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font: inherit;
+  background: #fff;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #60a5fa;
+}
+
+.btn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-ghost {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: #fff;
+}
+
+.btn-small {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  background: #e2e8f0;
+  color: #0f172a;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.muted {
+  color: #64748b;
+  margin: 0;
+}
+
+.error {
+  color: #b91c1c;
+  margin: 0;
+}
+
+.success {
+  color: #15803d;
+  margin: 0;
+}
+
+.footer-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  padding: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #64748b;
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.badge.admin {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.detail-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .danger-zone {
+    grid-column: 1 / -1;
+  }
+}
+
+.meta {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.meta div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.meta dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.danger-zone {
+  border-color: #fecaca;
+}
+
+.toast {
+  margin-top: 1rem;
+}

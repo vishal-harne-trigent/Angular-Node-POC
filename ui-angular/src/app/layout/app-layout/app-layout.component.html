@@ -1,0 +1,26 @@
+<div class="app-layout">
+  <header class="app-header">
+    <a routerLink="/users" class="brand">Learning API</a>
+    <nav class="nav">
+      @if (auth.isAuthenticated()) {
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+        @if (auth.isAdmin()) {
+          <a routerLink="/users/new" routerLinkActive="active">New user</a>
+        }
+        <span class="user-chip">
+          {{ auth.currentUser()?.email }}
+          @if (auth.currentUser()?.role) {
+            · {{ auth.currentUser()?.role === 'admin' ? 'Admin' : 'Employee' }}
+          }
+        </span>
+        <button type="button" class="btn btn-ghost" (click)="auth.logout()">Log out</button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active">Log in</a>
+        <a routerLink="/register" routerLinkActive="active">Register</a>
+      }
+    </nav>
+  </header>
+  <main class="app-main">
+    <router-outlet />
+  </main>
+</div>

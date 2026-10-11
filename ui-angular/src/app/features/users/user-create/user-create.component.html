@@ -1,0 +1,50 @@
+<section class="page-header">
+  <div>
+    <h1>Create user</h1>
+    <p class="muted">POST /api/users</p>
+  </div>
+  <a routerLink="/users" class="btn btn-ghost">Back to list</a>
+</section>
+
+<section class="card form-card">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Name
+      <input type="text" formControlName="name" />
+    </label>
+    <label>
+      Email
+      <input type="email" formControlName="email" />
+    </label>
+    <label>
+      Phone (optional)
+      <input type="tel" formControlName="phoneNumber" />
+    </label>
+    <label>
+      Status
+      <select formControlName="status">
+        @for (status of statuses; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Role
+      <select formControlName="role">
+        @for (role of roles; track role.value) {
+          <option [value]="role.value">{{ role.label }}</option>
+        }
+      </select>
+    </label>
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading()">
+        {{ loading() ? 'Creating…' : 'Create user' }}
+      </button>
+    </div>
+  </form>
+</section>
